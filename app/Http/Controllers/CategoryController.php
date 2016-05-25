@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
@@ -21,6 +22,10 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
+        foreach ($categories as $category) {
+            $category->count = $category->ads()->count();
+        }
+
         return view('index', compact('categories'));
     }
 
@@ -30,7 +35,7 @@ class CategoryController extends Controller
         $category = Category::findById(Input::get('id'));
         $models = $category->ads()->groupBy('model')->get()->toArray();
 
-        $html = '<option value="all">Any Model</option>';
+        $html = '<option value="all">Все модели</option>';
         if(empty($models)) {
             return $html;
         } else {
@@ -46,7 +51,7 @@ class CategoryController extends Controller
         $categoryID = $input['category'];
         if($categoryID == 'all'){
 
-            return redirect('/cars/all/all');
+            return redirect('/cars/all');
         } else {
             $category = Category::findById($categoryID);
             $categoryName = str_replace(' ', '-', $category->name);
@@ -54,7 +59,6 @@ class CategoryController extends Controller
                 return redirect('/cars/' . $categoryName . '/all');
             }
             else {
-              //  $model = str_replace(' ', '-', $request->model);
                 return redirect('/cars/' . $categoryName . '/' . $input['model']);
             }
         }
@@ -70,17 +74,25 @@ class CategoryController extends Controller
      */
     public function show($categoryName, $model = null)
     {
-        $input = Input::get();
         $sortOption = Input::get('sort', 'price_asc');
+        $filterOptions = Input::except('sort');
+
 
         if($categoryName == 'all') {
-            //$ads = Ad::all();
-            $ads = [];
+            $ads = Ad::sort($sortOption)->paginate(15);
+           foreach($ads as $ad){
+               $ad->category = $ad->category->name;
+           }
+
         } else {
             $categoryName = str_replace('-', ' ', $categoryName);
             $category = Category::findByName($categoryName);
             if($model == 'all') {
-                $ads = $category->ads()->sort($sortOption)->paginate(15);
+                $ads = $category->ads()
+                                //->where('price', '>=', $filterOptions['price_min'])
+                                ->filter($filterOptions)
+                                ->sort($sortOption)
+                                ->paginate(15);
                 //orderByRaw('CAST(price AS UNSIGNED) DESC, price')
             }
             else {
@@ -89,74 +101,12 @@ class CategoryController extends Controller
             }
         }
 
-        $categories = Category::all(); //for search bar
-        return view('ads', compact('ads', 'categoryName', 'categories', 'sortOption'));
+        $categories = Category::all();
+        return view('ads', compact('ads', 'categoryName', 'categories', 'sortOption', 'model'));
 
     }
 
 
 
 
-
-
-
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

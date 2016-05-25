@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\LoginFormRequest;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -28,7 +31,9 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/parse';
+    protected $loginPath = '/login';
+    protected $username = 'username';
 
     /**
      * Create a new authentication controller instance.
@@ -37,8 +42,45 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => ['logout', 'getLogout']]);
     }
+
+    public function getLogin()
+    {
+        return view('login');
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function postLogin(LoginFormRequest $request)
+    {
+        return $this->login($request);
+
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getLogout()
+    {
+
+        return $this->logout();
+    }
+
+    protected function getFailedLoginMessage()
+    {
+        return 'Не правильный логин или пароль.';
+    }
+
+
 
     /**
      * Get a validator for an incoming registration request.

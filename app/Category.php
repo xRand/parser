@@ -21,7 +21,7 @@ class Category extends Model
         return $category;
     }
 
-    //find category by name ??????????
+    //find category by name
     public function scopeFindByName($query, $name)
     {
         $category = $query->where('name', '=', $name)->first();
@@ -31,7 +31,14 @@ class Category extends Model
         return $category;
     }
 
-    //get all categories from the database
+    public function popular()
+    {
+
+
+
+    }
+
+        //get all categories from the database
     public static function all($columns = ['*'])
     {
         $columns = is_array($columns) ? $columns : func_get_args();
@@ -45,6 +52,7 @@ class Category extends Model
     {
         return $this->hasMany('App\Ad');
     }
+
 
 
 

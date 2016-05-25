@@ -16,19 +16,20 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'CategoryController@index');
     Route::post('/', 'CategoryController@getModels');
 
-    Route::post('/cars', 'CategoryController@search');
+    //authorization
+    Route::get('/login', 'Auth\AuthController@getLogin');
+    Route::post('/login', 'Auth\AuthController@postLogin');
+    Route::get('/logout', 'Auth\AuthController@getLogout');
 
+    //search
+    Route::post('/cars', 'CategoryController@search');
     Route::get('/cars/{category}/{model?}', 'CategoryController@show');
 
-   // Route::post('/search', 'CategoryController@show');
-
-
-
     //parser
-    Route::get('/parse', 'AdController@parse');
-    Route::get('/parse/ss', 'AdController@parseSS');
-    Route::get('/parse/latauto', 'AdController@parseLatAuto');
-    Route::get('/parse/auto24', 'AdController@parseAuto24');
+    Route::get('/parse', 'ParserController@index');
+    Route::get('/parse/ss', 'ParserController@parseSS');
+    Route::get('/parse/latauto', 'ParserController@parseLatAuto');
+    Route::get('/parse/auto24', 'ParserController@parseAuto24');
 });
 
 

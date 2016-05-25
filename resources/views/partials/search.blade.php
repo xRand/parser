@@ -1,11 +1,11 @@
 <div class="search-form">
     <form method="POST" action="{{ action('CategoryController@search') }}" class="form-inline" >
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Job Key Word">
+            <input type="text" class="form-control" placeholder="Ключевое слово">
         </div>
         <div class="form-group">
             <select name="category" id="category-list" class="form-control" onChange="getModels(this.value);">
-                <option value="all" selected>Any category</option>
+                <option value="all" selected>Все марки</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
@@ -13,11 +13,16 @@
         </div>
         <div class="form-group">
             <select name="model" id="model-list" class="form-control" disabled>
-                <option value="all" selected>Any Model</option>
+                <option value="all" selected>Все модели</option>
             </select>
         </div>
-        <input type="submit" class="btn" value="Search">
+        <input type="submit" class="btn" value="Поиск">
+        {{--<div class="form-group">--}}
+            {{--<a class="btn-lg form-group" href=""><span class="glyphicon glyphicon-cog"></span></a>--}}
+        {{--</div>--}}
+
     </form>
+
 </div>
 
 @section('footer')
@@ -31,7 +36,7 @@
                 $("#model-list").prop("disabled", false).html(data);
             },
             error: function(){
-                $("#model-list").prop("disabled", true).html('<option value="all" selected>Any model</option>');
+                $("#model-list").prop("disabled", true).html('<option value="all" selected>Все модели</option>');
             }
         });
     }

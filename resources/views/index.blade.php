@@ -6,10 +6,28 @@
 
 @section('content')
 
-    @foreach($categories as $category)
-        <ul>
-            <li><a href="{{ url('/cars', str_replace(' ', '-', $category->name)) }}">{{$category->name}}</a></li>
-        </ul>
-    @endforeach
+    <div class="col-lg-8 col-lg-offset-2 content-box ">
+        <div class="row">
+            <div class="col-lg-12  box-title no-border">
+                <h3 style="margin-top: 0;">Популярные категории</h3>
+            </div>
+            <div class="list-group" >
+                @foreach($categories as $category)
+                    @if($category->count >= 78)
+                        <div class="col-xs-6 col-md-4">
+                            <a class="list-group-item" href="{{ url('/cars/' . str_replace(' ', '-', $category->name) . '/all') }}">
+                                <span class="badge">{{$category->count}}</span>
+                                {{$category->name}}
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+
+
+
+    </div>
+
 
 @endsection
