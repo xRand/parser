@@ -8,10 +8,8 @@ class Category extends Model
 {
     protected $table = 'categories';
 
-    protected $fillable = ['name', 'parent_id'];
+    protected $fillable = ['name'];
 
-
-    //find category by id
     public function scopeFindById($query, $id)
     {
         $category = $query->where('id', '=', $id)->first();
@@ -21,7 +19,6 @@ class Category extends Model
         return $category;
     }
 
-    //find category by name
     public function scopeFindByName($query, $name)
     {
         $category = $query->where('name', '=', $name)->first();
@@ -31,14 +28,6 @@ class Category extends Model
         return $category;
     }
 
-    public function popular()
-    {
-
-
-
-    }
-
-        //get all categories from the database
     public static function all($columns = ['*'])
     {
         $columns = is_array($columns) ? $columns : func_get_args();
@@ -46,18 +35,10 @@ class Category extends Model
         return $instance->newQuery()->get($columns);
     }
 
-
-    //Ads that belong to the category
     public function ads()
     {
         return $this->hasMany('App\Ad');
     }
-
-
-
-
-
-
 
 
 

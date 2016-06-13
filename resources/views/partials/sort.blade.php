@@ -5,7 +5,7 @@
     <div class="pull-right">
 
         <form method="GET" class="form-inline">
-            <span style="">Сортировать по:&nbsp;&nbsp;&nbsp;</span>
+            <span>Сортировать по:&nbsp;&nbsp;&nbsp;</span>
             <select name="sort" id="sort-list">
                 <option value="price_asc" {{ ($sortOption == 'price_asc' ? 'selected':'') }}>Цене (дешевые сначала)</option>
                 <option value="price_desc" {{ ($sortOption == 'price_desc' ? 'selected':'') }}>Цене (дорогие сначала)</option>

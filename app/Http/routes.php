@@ -24,12 +24,13 @@ Route::group(['middleware' => ['web']], function () {
     //search
     Route::post('/cars', 'CategoryController@search');
     Route::get('/cars/{category}/{model?}', 'CategoryController@show');
+    Route::post('/cars/{category?}/{model?}', 'CategoryController@getModels');
 
     //parser
     Route::get('/parse', 'ParserController@index');
-    Route::get('/parse/ss', 'ParserController@parseSS');
-    Route::get('/parse/latauto', 'ParserController@parseLatAuto');
-    Route::get('/parse/auto24', 'ParserController@parseAuto24');
+    Route::post('/parse/ss', 'ParserController@parseSS');
+    Route::post('/parse/latauto', 'ParserController@parseLatAuto');
+    Route::post('/parse/auto24', 'ParserController@parseAuto24');
 });
 
 

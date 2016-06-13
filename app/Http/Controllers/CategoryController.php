@@ -4,32 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Ad;
 use App\Category;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $categories = Category::all();
-
         foreach ($categories as $category) {
             $category->count = $category->ads()->count();
         }
-
         return view('index', compact('categories'));
     }
 
-    //get models for selected category
     public function getModels()
     {
         $category = Category::findById(Input::get('id'));
@@ -48,9 +37,14 @@ class CategoryController extends Controller
 
     public function search(){
         $input = Input::get();
+        $keyword = $input['keyword'];
         $categoryID = $input['category'];
-        if($categoryID == 'all'){
-
+        if(!empty($keyword)) {
+            $keywords = explode(' ', $keyword);
+            if(empty($keywords[1]))  return redirect('/cars/' . $keywords[0] . '/all');
+            else return redirect('/cars/' . $keywords[0] . '/' . $keywords[1]);
+        }
+        else if($categoryID == 'all'){
             return redirect('/cars/all');
         } else {
             $category = Category::findById($categoryID);
@@ -64,14 +58,6 @@ class CategoryController extends Controller
         }
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $name
-     * @return \Illuminate\Http\Response
-     * @internal param int $id
-     */
     public function show($categoryName, $model = null)
     {
         $sortOption = Input::get('sort', 'price_asc');
@@ -89,9 +75,8 @@ class CategoryController extends Controller
             $category = Category::findByName($categoryName);
             if($model == 'all') {
                 $ads = $category->ads()
-                                //->where('price', '>=', $filterOptions['price_min'])
-                                ->filter($filterOptions)
                                 ->sort($sortOption)
+                                ->filter($filterOptions)
                                 ->paginate(15);
                 //orderByRaw('CAST(price AS UNSIGNED) DESC, price')
             }
@@ -100,13 +85,8 @@ class CategoryController extends Controller
                 $ads = $category->ads()->where('model', $model)->sort($sortOption)->paginate(15);
             }
         }
-
         $categories = Category::all();
-        return view('ads', compact('ads', 'categoryName', 'categories', 'sortOption', 'model'));
+        return view('ads', compact('ads', 'categoryName', 'categories', 'sortOption', 'model', 'filterOptions'));
 
     }
-
-
-
-
 }

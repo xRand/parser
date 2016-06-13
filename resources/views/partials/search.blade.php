@@ -1,7 +1,7 @@
 <div class="search-form">
     <form method="POST" action="{{ action('CategoryController@search') }}" class="form-inline" >
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Ключевое слово">
+            <input name="keyword" type="text" class="form-control" placeholder="Ключевое слово">
         </div>
         <div class="form-group">
             <select name="category" id="category-list" class="form-control" onChange="getModels(this.value);">
@@ -17,12 +17,7 @@
             </select>
         </div>
         <input type="submit" class="btn" value="Поиск">
-        {{--<div class="form-group">--}}
-            {{--<a class="btn-lg form-group" href=""><span class="glyphicon glyphicon-cog"></span></a>--}}
-        {{--</div>--}}
-
     </form>
-
 </div>
 
 @section('footer')

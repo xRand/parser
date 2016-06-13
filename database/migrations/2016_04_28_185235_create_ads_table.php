@@ -17,14 +17,14 @@ class CreateAdsTable extends Migration
             $table->integer('category_id')->unsigned()->index();
             $table->foreign('category_id')->references('id')->on('categories');  //->onDelete('cascade')
 
-            $table->text('url');
-            $table->text('img');
-            $table->string('description');
+            $table->string('url');
+            $table->string('img');
             $table->string('model');
-            $table->string('year', 5);
-            $table->string('capacity', 10);
-            $table->string('mileage');
-            $table->string('price');
+            $table->smallInteger('year')->unsigned();
+            $table->string('capacity');
+            $table->mediumInteger('mileage')->unsigned();
+            $table->mediumInteger('price')->unsigned();
+            $table->string('description');
             $table->timestamps();
         });
     }
