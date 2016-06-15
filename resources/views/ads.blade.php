@@ -8,12 +8,11 @@
                     <img src="{{ URL::to('img/widecar.jpg') }}" alt="auto" >
                     <div class="mask"></div>
                 </div>
-
             </div>
         </div>
-        <div class="container slider-content" style="top: 35%">
+        <div class="container slider-content search2">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 ">
                     @include('partials/search')
                 </div>
             </div>
@@ -24,21 +23,21 @@
 @section('content')
 
     <div class="row">
-        <div class="col-sm-4 pull-left">
-            <div class="sidebar ">
+        <div class="col-md-4 pull-left col-xs-12">
+            <div class="sidebar">
                 @include('partials/filter')
             </div>
         </div>
-        <div class="col-sm-8 pull-right listings">
+        <div class="col-md-8 col-xs-12 pull-right listings">
             @include('partials/sort')
             @foreach($ads as $ad)
                 <div class="row listing-row">
-                    <div class="col-sm-3 photo" >
+                    <div class="col-md-3 col-sm-2 hidden-xs photo" >
                             <a href="{{$ad->url}}" onclick="centeredPopup(this.href);return false" >
                                 <img class="img-responsive" src="{{$ad->img == 'noimage' ? url('/img/noimage.png') : $ad->img}}" width="150" height="150" alt="auto">
                             </a>
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-md-9 col-sm-10 col-xs-12">
                         <h3>
                             <a class="" href="{{$ad->url}}" onclick="centeredPopup(this.href);return false">
                                 {{$categoryName == 'all' ?  $ad->category : $categoryName}} {{$ad->model}} -

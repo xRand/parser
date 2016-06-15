@@ -52,6 +52,9 @@
 	padding: 0 50px
 }
 
+.search2{
+    top: 15% !important;
+}
 
 .slider-content {
   margin-left: -53%;
@@ -255,6 +258,7 @@
 .navbar .container {
   padding: 10px 15px;
 }
+
 .navbar {
   min-height: 75px;
 }
@@ -291,6 +295,10 @@
 	padding: 0 50px
 }
 
+.search2 {
+     top:10% !important;
+    left:65% !important;
+}
 
 .slider-content {
   margin-left: -53%;

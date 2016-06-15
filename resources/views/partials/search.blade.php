@@ -16,7 +16,10 @@
                 <option value="all" selected>Все модели</option>
             </select>
         </div>
-        <input type="submit" class="btn" value="Поиск">
+
+        <div class="form-group">
+            <input type="submit" class="btn" value="Поиск">
+        </div>
     </form>
 </div>
 

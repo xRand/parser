@@ -53,6 +53,10 @@ body{
     color: #171e42;
     padding: 10px;
 }
+
+.navbar-brand{
+    height: 100%;
+}
 .header-connect{
 	padding-top: 10px;
 }
@@ -62,6 +66,9 @@ body{
 .header-call p span{
 	margin-right: 15px;
 	font-weight: 300;
+}
+.search2 {
+    top:35% !important;
 }
 .header-call p span i{
 	margin-right: 3px;
@@ -86,6 +93,8 @@ body{
 	position: relative;
 
 }
+
+
 .navbar-nav > li > a {
   padding-right: 20px;
   padding-left: 20px;

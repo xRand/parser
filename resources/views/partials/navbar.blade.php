@@ -1,4 +1,5 @@
 <nav class="navbar navbar-default">
+
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -7,8 +8,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+
             </button>
-            <a class="navbar-brand" href="{{ url('') }}"><img src="{{ url('img/logo2.png') }}" alt="logo" width="140" height="70"></a>
+            <a class="navbar-brand" href="{{ url('') }}"><img  class="logo" src="{{ url('img/logo2.png') }}" alt="logo" width="140" height="70"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,8 +30,6 @@
                     <li><a href="{{ url('parse') }}">Управление парсером</a></li>
                @endif
             </ul>
-
-
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

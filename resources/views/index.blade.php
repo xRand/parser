@@ -13,8 +13,8 @@
             </div>
             <div class="list-group" >
                 @foreach($categories as $category)
-                    @if($category->count >= 50)
-                        <div class="col-xs-6 col-md-4">
+                    @if($category->count >= 120)
+                        <div class="col-xs-12 col-md-4">
                             <a class="list-group-item" href="{{ url('/cars/' . str_replace(' ', '-', $category->name) . '/all') }}">
                                 <span class="badge">{{$category->count}}</span>
                                 {{$category->name}}
@@ -24,10 +24,6 @@
                 @endforeach
             </div>
         </div>
-
-
-
     </div>
-
 
 @endsection

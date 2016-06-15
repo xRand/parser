@@ -5,7 +5,6 @@
                 <img src="{{ URL::to('img/widecar.jpg') }}" alt="auto" >
                 <div class="mask"></div>
             </div>
-
         </div>
     </div>
     <div class="container slider-content">
